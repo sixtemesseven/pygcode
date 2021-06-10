@@ -20,6 +20,27 @@ class Gcode():
             "Y" : 0,
             "Z" : 0
             }   
+        self.setMM()
+        
+        
+    def setMM(self):
+        return self.sendGcodeCommand("G21")
+    
+    def setAbsPos(self):
+        return self.sendGcodeCommand("G90")
+    
+    def setRelPos(self):
+        return self.sendGcodeCommand("G91")
+    
+    def setSteps2lenght(self, axis, factor):
+        cmd = 'M92 ' + str(axis) + str(factor)
+        return self.sendGcodeCommand(cmd)
+    
+    
+    
+    
+    
+    
     
     def sendGcodeCommand(self, command):
         self.c.write(command.encode('utf_8') + b'\n')
@@ -39,4 +60,7 @@ class Gcode():
     
         
 g = Gcode(17)
-g.moveAxis('X', 10)
+g.setSteps2lenght('X', 1)
+g.moveAxis('X', 100)
+
+del g
